@@ -1,0 +1,16 @@
+{
+  "name": "supreme_ta_bot",
+  "version": "1.0.0",
+  "description": "Tasks assign",
+  "main": "app.js",
+  "scripts": {
+    "start" : "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Creative Commons Attribution-NonCommercial 4.0 International License",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "winston": "^3.13.1"
+  }
+}
