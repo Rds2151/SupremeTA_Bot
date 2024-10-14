@@ -1,8 +1,9 @@
 const { assignTasksToDeveloper, fetchFilterData } = require('./toloka-apis')
 const fs = require('fs');
 const winston = require('winston');
+require("dotenv").config();
 
-const Project_name = 'Project P'
+const Project_name =  process.env.PROJECT_NAME;
 
 // Configure winston to log to a file
 const logger = winston.createLogger({
@@ -42,7 +43,6 @@ const assignTasks = async () => {
         
         // Fetch the result of filter annotation
         const result = await fetchFilterData();
-        console.log(result);
         
         if (!result || !result.tasks) {
             logger.error('Invalid result format from fetchFilterData.');
@@ -57,8 +57,8 @@ const assignTasks = async () => {
             const entries = Object.entries(payload);
         
             let taskIndex = 0;
-            console.log("Beginning the task assignment process...");
-            logger.info('Beginning the task assignment process...');
+            console.log(`Beginning the task assignment process for "${Project_name}"...`);
+            logger.info(`Beginning the task assignment process for "${Project_name}"...`);
             // Iterate over the entries array
             for (let [email, value] of entries) {
                 const user = user_details.find(user => user.email === email);
@@ -82,9 +82,9 @@ const assignTasks = async () => {
                     let assignmentResult = await assignTasksToDeveloper(user.id, eachTasks);
                     // let assignmentResult = 200
                     if (assignmentResult === 200) {
-                        console.log(`Successfully assigned ${value} tasks of ${Project_name} to ${user.email}: ${eachTasks}`)
+                        console.log(`Successfully assigned ${value} tasks of "${Project_name}" to ${user.email}: ${eachTasks}`)
                         // Log successful task assignment
-                        logger.info(`Successfully assigned ${value} tasks of \`Project P\` to ${user.email}: ${eachTasks}`);
+                        logger.info(`Successfully assigned ${value} tasks of "${Project_name}" to ${user.email}: ${eachTasks}`);
                     } else {
                         console.log(`Failed to assigned tasks to ${user.email}: ${eachTasks}`)
                         // Log failed task assignment

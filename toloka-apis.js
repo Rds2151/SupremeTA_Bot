@@ -147,7 +147,7 @@ const assignTasksToDeveloper = async (user_id, tasks) => {
 			{
 				method: "POST",
 				headers: headers,
-				body: `{"type":"annotator","selectedItems":{"all":false,"included":${tasks}},"users":[${user_id}],"filters":{"conjunction":"and","items":${filter}}}`,
+				body: `{"type":"annotator","selectedItems":{"all":false,"included":${tasks}},"users":[${user_id}],"filters":{"conjunction":"and","items":${JSON.stringify(filter)}}}`,
 				timeout: 10000,
 			}
 		);
